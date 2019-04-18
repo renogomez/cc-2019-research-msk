@@ -20,16 +20,34 @@ René Gómez Londoño - Ivan Salfati
 
 ## Introduction
 
+Digitalization and the web 2.0 has lead to multiple data sources with structured and unstructured data. But the problem doesn’t stop there, we have also created different specialized tools to store, query and analyse such data. The combination of more data sources and the need to get this data into diverse systems leads to a huge data integration problem. From the architectural point of view, the rise of event data have forced to change from _monolithic_ applications to more scalable systems with _Services Oriented Architectures_ (SOA) and more recently _Microservices_. 
+
+When systems reach a critical level of dynamism we have to change our way of modelling and designing them. However, this also increase the complexity of the communication systems required to properly transport data from the multiple sources to the multiple target systems. The appropriate systems architecture for this inherent dynamic nature to complex engineered systems is what is called event driven architecture, built around the production, detection, and reaction to events that take place in time. 
+
+The aim of stream processing platforms as Apache Kafka is precisely provide the capacities to process events in _real time_. 
+Furthermore, since Big Data applications are deployed on the cloud, it is also important to study how to deploy Kafka in such infrastructures. 
+
+In this document, we explore some concepts behind stream processing, Apache Kafka and the cloud computing services provided to manage Kafka clusters in the amazon platform. We also present the typical architecture for Kafka solutions, the data abstraction and its importance in the whole Kafka’s ecosystem. At the end of the document we present the use cases and some real production environments that evidence Kafka’s performance in companies like Twitter and Uber.
+
+
+
+## Stream Processing
+
+### Event centric design 
+More than data stores, a company is an active process, continuously reacting and operating as events occur. In consequence, event centric design have emerged and with it event driven architectures, a design pattern built around the production, detection, and reaction to events that take place in real time ([Fowler 2017](#fowler-2017)). Companies are rethinking their business as a stream of events and how to respond to those events. This perspective lets companies to model what happens in their business as events: the sales, the orders, the customer experience and behavior are streams of events that again, model the operation of the business. They key is to detect such events, find relations between them and react in a proper manner. 
+
+### Stream processing platform
+
+Both situations, data integration and events processing require technological solutions. The data generated continuously by thousands of data sources that send data records (messages or events) simultaneously and normally in small sizes is called streaming data ([AWS 2018](aws-2018)). The ability to process/react in real time to messages/events is called stream processing. 
 
 ## Apache Kafka
 
-Lorem
+Kafka is a stream processing platform. For this reason, Kafka clusters are part of the data processing architecture of  a lot of companies like LinkedIn, Yahoo!, Twitter, Netflix, Spotify, Uber and many more.
 Lorem
 - Lorem 1: 
 - Lorem 2:
 
 ## Architecture
-
 
 ### Component 1
 
@@ -52,6 +70,17 @@ Lorem
 ### Component 2
 
 Lorem
+
+
+## Managed Streaming for Kafka (MSK)
+
+### Introduction
+
+### Benefits
+
+### Configure
+
+### Example
 
 
 ## Conclusion
