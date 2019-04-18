@@ -96,8 +96,7 @@ Kafka defines different APIs to decoupling the capabilities it provides.
 Putting all together, this is how the main components are connected. 
 
 ![kafka-APIs](img/06-kafka-cluster.png)
-
-
+<span style="font-size:4em;">Source: [Sabri Skhiri, Euranova](https://euranova.eu)</span>
 
 ### Component 1
 
