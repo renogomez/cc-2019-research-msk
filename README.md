@@ -43,10 +43,9 @@ More than data stores, a company is an active process, continuously reacting and
 
 ### Stream processing platform
 
-Data stores somehow are based on the illusion of static data, using tables as the data abstraction. The *purpose of streaming platforms is to model change explicitly*, thinking in data flows and using a log as data abstraction. 
+Data stores somehow are based on the illusion of static data, using tables as the data abstraction. The *purpose of streaming platforms is to model change explicitly*, thinking in data flows and using a log as data abstraction. The figures is a visualization made by [Alooma](https://www.alooma.com) representing the idea of data stream.
 
-![streaming-platform](img/01-streaming-platform.png)
-
+![streaming-platform](./img/datastream.gif)
 
 Both situations, data integration and events processing require new technological solutions. The data generated continuously by thousands of data sources that send data records (messages or events) simultaneously and normally in small sizes is called streaming data ([AWS 2018](aws-2018)). The ability to process/react in real time to messages/events is called stream processing. 
 
