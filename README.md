@@ -59,96 +59,56 @@ For this reason, Kafka clusters are part of the data processing architecture of 
 
 Kafka got its start as an internal infrastructure system at LinkedIn. According to Jay Kreps ([Narkhede et al. 2017](narkhede-2017)) Kafka tries to solve the problems related with handling _continuous flows of data_.
 
-## Undestanding Kafka
+### Undestanding Kafka
 
 In Kafka, the data records are know as messages and they are categorized into **topics**. Think of **messages** as the data _records_ and **topics** as a database **table**. 
  
 Topics are additionally broken down into a number of **partitions** to be stored in a single **log**. This means messages are written down in partitions in an **append-only** fashion, and are read in order from beginning to end by **consumers**. 
 Topics are divided into partitions to allow distribution across multiple servers if it is required. This provides redundancy and scalability. 
 
-As was mentioned, Kafka uses a producer/consumer pattern. Kafka allows application **subscription** to one or more topics to store/process/react to the stream of records produced to them. Each client has its own **offset**, which is a pointer to the next message the consumer has to process. With the offset a consumer can stop and restart (or fail) the process without losing its place. This is why Kafka allows different types of applications to integrate to a single source of data. The data can be processed at different rates by each consumer. 
+As was mentioned, Kafka uses a producer/consumer pattern. Kafka allows application **subscription** to one or more topics to store/process/react to the stream of records produced to them. Each client has its own **offset**, which is a pointer to the next message the consumer has to process. With the offset a consumer can stop and restart the process (or fail) without losing its place. This is why Kafka allows different types of applications to integrate to a single source of data. The data can be processed at different rates by each consumer. 
 
 Another important concept in Kafka is the **consumer group**, which are nothing more than consumers working together to process a topic. It allows to add scale processing of data in Kafka.
 
 
-Communication between all components is done via a high performance simple binary API over TCP protocol. All these concepts and the way the are related is the reason why at the beginning Kafka was considered a distributed commit log. However, the API for processing the messages was later added and with it, Kafka became a streaming processing platform. These different concepts are illustrated in the following figure:
+All these concepts and the way the are related is the reason why at the beginning Kafka was considered a distributed commit log. However, the API for processing the messages was later added and with it, Kafka became a streaming processing platform. These different concepts are illustrated in the following figure:
 
 ![kafka-components](img/03-kafka-concepts.png)
-
-In summary: 
-- **Topics:** the categories within which Kafka maintains the feeds of messages.
-- **Producers:** processes that publish messages to a Kafka topic.
-- **Consumers:** processes that subscribe to topics and process the feed of
-published messages.
-- **Brokers:** Kafka is run as a cluster of servers each of which is called a
-broker.
 
 
 ### Architecture
 Kafka defines different APIs to decoupling the capabilities it provides.
 
+- **Producer API:** The producer API allows applications to send streams of data to topics in the Kafka cluster.
+- **Consumer API:** The Connect API allows applications to read streams of data from topics in the Kafka cluster.
+- **Connect API:** The consumer API allows implementing connectors that continually pull from some source data system into Kafka or push from Kafka into some sink data system.
+- **Streams API:** The Streams API allows transforming streams of data from input topics to output topics.
+- **AdminClient API:** The AdminClient API supports managing and inspecting topics, brokers, acls, and other Kafka objects.
 
-
-- **Messaging API:** Lorem
-- **Connect API:** Lorem
-- **Streams API:** Lorem
-
-Putting all together, this is how the main components are connected. 
+Putting all together, this is how the main components are connected: 
 
 ![kafka-APIs](img/06-kafka-cluster.png)
-<span style="font-size:4em;">Source: [Sabri Skhiri, Euranova](https://euranova.eu)</span>
 
-### Component 1
+Source: [Sabri Skhiri, Euranova](https://euranova.eu)
 
+Going back to the microservice architecture explored at the beginning of this document, the following figure represents the same system orchestrated using Kafka as streaming platform:
 
-#### Component 1.1
+![kafka-APIs](img/07-architecturewithkafka.png)
 
-The following code shows...
+Is important to notice here that a **message queue** allows  to **scale processing** of data over multiple consumer’s instances that process the data. Unfortunately, once a message is consumed from the queue the message is not available anymore for others consumers that may be interested in the same message. **Publisher/subscriber** in contrast **does not scale processing** but it allows you to **broadcast each message** to a list of subscribers, enabling the capacity to connect new client applications to the same data source. 
 
-```yaml
-component code
-```
+Kafka offers a mix of those two messaging models: **Kafka** publishes messages in topics that **broadcast** all the **messages to** different **consumer groups**. The **consumer group acts** as a **message queue** that **divides** up **processing** over all the members of a group. 
 
-Lorem
+### Use cases
 
-#### Componen 1.2
+#############Mention the use cases############
+![kafka-APIs](./img/08-usecase-static.png)
 
-Lorem
-
-
-### Component 2
-
-Lorem
+![kafka-APIs](img/09-usecase-realtime.gif)
 
 
 
-## Components
-
-
-### Component 1
-
-
-#### Component 1.1
-
-The following code shows...
-
-```yaml
-component code
-```
-
-Lorem
-
-#### Componen 1.2
-
-Lorem
-
-
-### Component 2
-
-Lorem
-
-
-## Managed Streaming for Kafka (MSK)
+## Managed Streaming for Kafka
 
 ### Introduction
 
