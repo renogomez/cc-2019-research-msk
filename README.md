@@ -1,4 +1,4 @@
-# Research Project: Amazon MSK
+# Amazon Managed Streaming for Kafka (MSK)
 
 ## Authors
 
