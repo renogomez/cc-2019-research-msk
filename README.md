@@ -22,6 +22,10 @@ René Gómez Londoño - Ivan Salfati
 
 Digitalization and the web 2.0 has lead to multiple data sources with structured and unstructured data. But the problem doesn’t stop there, we have also created different specialized tools to store, query and analyse such data. The combination of more data sources and the need to get this data into diverse systems leads to a huge data integration problem. From the architectural point of view, the rise of event data have forced to change from _monolithic_ applications to more scalable systems with _Services Oriented Architectures_ (SOA) and more recently _Microservices_. 
 
+[![distributed-system-problems](img/distribution-problem.png)](https://twitter.com/mathiasverraes/status/632260618599403520)
+
+
+
 When systems reach a critical level of dynamism we have to change our way of modelling and designing them. However, this also increase the complexity of the communication systems required to properly transport data from the different sources to the multiple target systems. Companies easily end up building webs of micro-services, which are difficult to manage, debug and maintain.
 
 [![microservices](img/00-microservices-oldarchitecture.png)](https://www.confluent.io)
@@ -33,7 +37,6 @@ The aim of stream processing platforms as Apache Kafka is precisely provide the 
 Furthermore, since Big Data applications are deployed on the cloud it is also important to study how to deploy Kafka in such infrastructures. 
 
 In this document, we explore some concepts behind stream processing, Apache Kafka and the cloud computing services provided to manage Kafka clusters in the Amazon cloud computing platform. We also present the typical architecture for Kafka solutions, the data abstraction and its importance in the whole Kafka’s ecosystem. At the end of the document we present the use cases and some real production architectures that evidence Kafka’s performance in companies like Twitter and Uber.
-
 
 
 ## Stream Processing
@@ -68,7 +71,6 @@ Topics are divided into partitions to allow distribution across multiple servers
 As was mentioned, Kafka uses a producer/consumer pattern. Kafka allows application **subscription** to one or more topics to store/process/react to the stream of records produced to them. Each client has its own **offset**, which is a pointer to the next message the consumer has to process. With the offset a consumer can stop and restart the process (or fail) without losing its place. This is why Kafka allows different types of applications to integrate to a single source of data. The data can be processed at different rates by each consumer. 
 
 Another important concept in Kafka is the **consumer group**, which are nothing more than consumers working together to process a topic. It allows to add scale processing of data in Kafka.
-
 
 All these concepts and the way the are related is the reason why at the beginning Kafka was considered a distributed commit log. However, the API for processing the messages was later added and with it, Kafka became a streaming processing platform. These different concepts are illustrated in the following figure:
 
