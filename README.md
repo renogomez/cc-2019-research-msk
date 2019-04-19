@@ -22,15 +22,15 @@ René Gómez Londoño - Ivan Salfati
 
 Digitalization and the web 2.0 has lead to multiple data sources with structured and unstructured data. But the problem doesn’t stop there, we have also created different specialized tools to store, query and analyse such data. The combination of more data sources and the need to get this data into diverse systems leads to a huge data integration problem. From the architectural point of view, the rise of event data have forced to change from _monolithic_ applications to more scalable systems with _Services Oriented Architectures_ (SOA) and more recently _Microservices_. 
 
-When systems reach a critical level of dynamism we have to change our way of modelling and designing them. However, this also increase the complexity of the communication systems required to properly transport data from the multiple sources to the multiple target systems. Companies easily end up building webs of micro-services, which are difficult to manage, debug and maintain.
+When systems reach a critical level of dynamism we have to change our way of modelling and designing them. However, this also increase the complexity of the communication systems required to properly transport data from the different sources to the multiple target systems. Companies easily end up building webs of micro-services, which are difficult to manage, debug and maintain.
 
 [![microservices](img/00-microservices-oldarchitecture.png)](https://www.confluent.io)
 
 
-The appropriate systems architecture for this inherent dynamic nature of complex engineered systems is what is called event driven architecture, built around the production, detection, and reaction to events that take place in time. 
+The appropriate systems architecture for this inherent dynamic nature of complex engineered systems is the event driven architecture, built around the production, detection, and reaction to events that take place in time. 
 
 The aim of stream processing platforms as Apache Kafka is precisely provide the capacities to process events in _real time_. 
-Furthermore, since Big Data applications are deployed on the cloud, it is also important to study how to deploy Kafka in such infrastructures. 
+Furthermore, since Big Data applications are deployed on the cloud it is also important to study how to deploy Kafka in such infrastructures. 
 
 In this document, we explore some concepts behind stream processing, Apache Kafka and the cloud computing services provided to manage Kafka clusters in the Amazon cloud computing platform. We also present the typical architecture for Kafka solutions, the data abstraction and its importance in the whole Kafka’s ecosystem. At the end of the document we present the use cases and some real production architectures that evidence Kafka’s performance in companies like Twitter and Uber.
 
@@ -100,7 +100,17 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 
 ### Use cases
 
+- **Real-time web and log analytics:** How the website performs and how the users interact.
+- **Messaging:** Some companies use Kafka as a buffer to communicate. 
+- **Transaction and event sourcing:** Gathering transactions from multiple data sources to maintain the consistency and traceability of such transactions. 
+- **Decoupled microservices:** Popular data store for micro services. 
+- **Streaming ETL:** Ingest and transform data to deliver info to other systems in _real time_. 
+
+Some companies using Kafka: 
+
 #############Mention the use cases############
+
+
 ![kafka-APIs](./img/08-usecase-static.png)
 
 ![kafka-APIs](img/09-usecase-realtime.gif)
@@ -110,14 +120,37 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 ## Managed Streaming for Kafka
 
 ### Introduction
+Amazon MSK is a fully managed service that makes it easy for you to build and run applications that use Apache Kafka to process streaming data ([MSK Documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html))
+
+The following diagram provides an overview of how Amazon MSK works:
+
+![msk-architecture](./img/11-msk-architecture-visio.png)
 
 ### Benefits
+The advantage of MSK is having all the capacities of Kafka integrated and managed as the other Amazon Web Services. It is then possible to use the AWS Command Line Interface ([AWS CLI](https://aws.amazon.com/cli/)) or the APIs in the SDK to perform control-plane operations. For example, you can use the AWS CLI or the SDK to create or delete an Amazon MSK cluster, list all the clusters in an account, or view the properties of a cluster.
 
-### Configure
+MSK promise the advantages that are in general offer by Amazon's cloud computing services: 
+> Amazon Managed Streaming for Kafka **makes it easy** for you to **build and run production applications on Apache Kafka without needing** Apache Kafka infrastructure **management expertise**. That means you spend less time managing infrastructure and more time building applications.
 
-### Example
+### Creating a Kafka cluster
+
+The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
+
+1. **Create a VPC** - First you configure a logically isolated section of Amazon Web Services Cloud creating a Virtual Private Cloud.
+2. **Enable High Availability and Fault Tolerance** - Here you specify subnets  in different availability zones in order to high availability and fault tolerance
+3. **Create a Cluster** Then, using a configuration file you create the cluster in the network built in step 2.
+4. **Create a Client Machine** - Now you can configure the client to access the cluster. You will have to configure the proper security groups so the cluster accept info originated in the client machine.
+5. **Create a Topic** - From the client machine you access the cluster to manage topics, partitions, replication, etc.
+6. **Produce and Consume Data** - Finally, you use the APIs to produce and consume data from the cluster. Here is the example of following the mentioned tutorial:
+![producer-consumer](./img/12-producer-consumer.gif)
+
+When creating and configuring the Kafka cluster it is recommended to be really careful while copying the IDs of the dirrent components. In the same way, make sure to set the security groups correctly, most error come from not having the client machine as a safe source of information in the Kafka.
+
+## Best practices
 
 
+
+ 
 ## Conclusion
 
 In this report we have described the foundations of Kafka and MSK architecture.. 
