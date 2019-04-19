@@ -113,11 +113,13 @@ Some companies using Kafka:
 
 ![kafka-APIs](./img/08-usecase-static.png)
 
+If possible, include different companies with different architectures
+
 ![kafka-APIs](img/09-usecase-realtime.gif)
 
 
 
-## Managed Streaming for Kafka
+## Amazon Managed Streaming for Kafka
 
 ### Introduction
 Amazon MSK is a fully managed service that makes it easy for you to build and run applications that use Apache Kafka to process streaming data ([MSK Documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html))
@@ -137,18 +139,21 @@ MSK promise the advantages that are in general offer by Amazon's cloud computing
 The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
 
 1. **Create a VPC** - First you configure a logically isolated section of Amazon Web Services Cloud creating a Virtual Private Cloud.
-2. **Enable High Availability and Fault Tolerance** - Here you specify subnets  in different availability zones in order to high availability and fault tolerance
+2. **Enable High Availability and Fault Tolerance** - Here you specify subnets  in different availability zones in order to have high availability and increase fault tolerance
 3. **Create a Cluster** Then, using a configuration file you create the cluster in the network built in step 2.
 4. **Create a Client Machine** - Now you can configure the client to access the cluster. You will have to configure the proper security groups so the cluster accept info originated in the client machine.
 5. **Create a Topic** - From the client machine you access the cluster to manage topics, partitions, replication, etc.
 6. **Produce and Consume Data** - Finally, you use the APIs to produce and consume data from the cluster. Here is the example of following the mentioned tutorial:
+
 ![producer-consumer](./img/12-producer-consumer.gif)
+
+From this point, you can configure your cluster to integrate other services of AWS like DynamoDB and so on.
 
 When creating and configuring the Kafka cluster it is recommended to be really careful while copying the IDs of the dirrent components. In the same way, make sure to set the security groups correctly, most error come from not having the client machine as a safe source of information in the Kafka.
 
+
+
 ## Best practices
-
-
 
  
 ## Conclusion
