@@ -97,10 +97,9 @@ Going back to the microservice system explored at the beginning of this document
 
  The ability to decouple producers and consumers using an event log as an intermediate layer allows the [service choreography](https://en.wikipedia.org/wiki/Service_choreography):
 
-With this architecture many components can subscribe to events stored in the event log and react to them asynchronously. 
-
 > "Dancers dance following a global scenario without a single point of control"
 
+With this architecture many components can subscribe to events stored in the event log and react to them asynchronously. 
 
 At this point, it is important to remember the communication patterns involved in Kafka. Notice  that a **message queue** allows  to **scale processing** of data over multiple consumer’s instances that process the data. Unfortunately, once a message is consumed from the queue the message is not available anymore for others consumers that may be interested in the same message. **Publisher/subscriber** in contrast **does not scale processing** but it allows you to **broadcast each message** to a list of subscribers, enabling the capacity to connect new client applications to the same data source. 
 
@@ -108,7 +107,7 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 
 ### Use cases
 
-#####___ TODO: Link examples of real applications for each case____
+##### ___ TODO: Link examples of real applications for each case____
 
 
 Kafka is being used in many different application domains. Here are some of them:
@@ -121,7 +120,7 @@ Kafka is being used in many different application domains. Here are some of them
 
 Some companies using Kafka: 
 
-#####___ TODO: Redact the use cases____
+##### ___ TODO: Redact the use cases____
 
 
 ![kafka-APIs](./img/08-usecase-static.png)
@@ -146,8 +145,7 @@ The advantage of MSK is having all the capacities of Kafka integrated and manage
 MSK promise the advantages that are in general offer by Amazon's cloud computing services: 
 > Amazon Managed Streaming for Kafka **makes it easy** for you to **build and run production applications on Apache Kafka without needing** Apache Kafka infrastructure **management expertise**. That means you spend less time managing infrastructure and more time building applications.
 
-
-### Creating a Kafka cluster
+### Creating a Kafka cluster with MSK
 
 The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
 
@@ -168,7 +166,7 @@ When creating and configuring the Kafka cluster it is recommended to be really c
 
 ## Best practices
 
-#####___ TODO: Redact the best practices____
+##### ___ TODO: Redact the best practices____
 
 Review the following and get some other sources to get best practices and useful advices for application deployment using MSK
 
@@ -181,7 +179,7 @@ https://pages.awscloud.com/Introduction-to-Amazon-Managed-Streaming-for-Kafka-MS
  
 ## Conclusion
 
-#####___ TODO: Redact conclusions____
+##### ___ TODO: Redact conclusions____
 
 
 In this report we have described the foundations of Kafka and MSK architecture.. 
