@@ -136,6 +136,7 @@ The advantage of MSK is having all the capacities of Kafka integrated and manage
 MSK promise the advantages that are in general offer by Amazon's cloud computing services: 
 > Amazon Managed Streaming for Kafka **makes it easy** for you to **build and run production applications on Apache Kafka without needing** Apache Kafka infrastructure **management expertise**. That means you spend less time managing infrastructure and more time building applications.
 
+
 ### Creating a Kafka cluster
 
 The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
@@ -151,11 +152,18 @@ The main advantage of MSK is the facility it provides to configure and operate K
 
 From this point, you can configure your cluster to integrate other services of AWS like DynamoDB and so on.
 
-When creating and configuring the Kafka cluster it is recommended to be really careful while copying the IDs of the dirrent components. In the same way, make sure to set the security groups correctly, most error come from not having the client machine as a safe source of information in the Kafka.
+When creating and configuring the Kafka cluster it is recommended to be really careful while copying the IDs of the different components. In the same way, make sure to set the security groups correctly, most error come from not having the client machine as a safe source of information in the Kafka.
 
 
 
 ## Best practices
+Review the following and get some other sources to get best practices and useful advices for application deployment using MSK
+
+https://aws.amazon.com/blogs/big-data/best-practices-for-running-apache-kafka-on-aws/
+
+Review webinar
+
+https://pages.awscloud.com/Introduction-to-Amazon-Managed-Streaming-for-Kafka-MSK_1208-ABD_OD.html
 
  
 ## Conclusion
@@ -164,4 +172,4 @@ In this report we have described the foundations of Kafka and MSK architecture..
 
 ## Sources and further readings
 
-#### Fowler 2017 - [Link 1](https://link.io/)
+[Fowler 2017](https://link.io/)
