@@ -169,9 +169,10 @@ When creating and configuring the Kafka cluster it is recommended to be really c
 
 The best practices described here are based in experiences running and operating large-scale Kafka clusters on Amazon Web Services. This post intends to help AWS customers currently working and running Kafka on AWS, and also, for those customers who are considering migrating on-premises Kafka deployment to AWS.
 
-Running Kafka on Amazon EC2 provides a high performance, scalable solutions and many different instance types and storage options combinations for Kafka deployments. However, since there are a lot of possible deployment topologies, it's not always trivial to select the most appropiate strategy for a specific use case.
+Running Kafka on Amazon EC2 provides a **high performance**, **scalable solutions** and many **different instance types and storage options** combinations for Kafka deployments. However, since there are a lot of possible deployment topologies, **it's not always trivial to select the most appropiate strategy for a specific use case**.
 
-Here we try to cover some aspects of running Kafka clusters on AWS
+Here we try to cover some aspects of running Kafka clusters on AWS:
+
 * Deployment considerations and patterns
 * Storage options
 * Instance Types
@@ -195,7 +196,7 @@ __Imagen__
 
 Where Kafka producers and Kafka clusters are deployed on each zone, the data is distributed evenly across the clusters and the consumers aggregate data from all three clusters.
 
-In case of a failover, all the Kafka producers are marked down, the consumers are stopped, there is a debugging phase, the consumers are restarted and, afterwards, the producers are restarted.
+In case of a **failover**, all the Kafka producers are marked down, the consumers are stopped, there is a debugging phase, the consumers are restarted and, afterwards, the producers are restarted.
 
 Here are the pros and the cons of this deployment pattern:
 
@@ -213,7 +214,7 @@ __Image 2__
 Where Kafka producers are deployed on all three AZs and only one Kafka cluster is deployed across three AZs.  
 ZooKeeper instances are deployed on each AZ, Brokers are spread evenly across AZs, Kafka consumers can be deployed across all three AZs and the Standby mirror is part of the deployment.
 
-In case of a failover, the traffic is switched to standby Kafka cluster and the consumers are restarted to consume from the Kafka cluster.
+In case of a **failover**, the traffic is switched to standby Kafka cluster and the consumers are restarted to consume from the Kafka cluster.
 
 Again, here are the pros and the cons of this deployment pattern:
 
@@ -226,6 +227,28 @@ Again, here are the pros and the cons of this deployment pattern:
 It is recommended to use a single Kafka cluster in one AWS Regions, with brokers distributing across all three AZs (1 region, 3 AZs). This approach offers stronger fault tolerance, because a failed AZ won't cause Kafka downtime.
 
 ### Storage
+
+There are two options for file storage in Amazon EC2:
+
+* Ephemeral Storage 
+* Amazon Elastic Block Store
+
+The first one is local to Amazon EC2 instance, which can provide high IOPS based on the instance type. On the other hand, Amazon EBS volumes offer high resiliency and you can configure IOPS based on our storage needs. They also offer advantatges on recovery time. The choice is **closely related to the type of workload** supported by your Kafka cluster.
+
+Kakfa has a built-in fault tolerance by replication data partitions across a certain number of instances. If a broker fails, it is possible to recover it by fetching all the data from other brokers in the cluster that hos the other replicas. Depdening on the size of the data transfer, it can affect recovery process and network traffic.
+
+Below we show the contrast of the benefits of using Ephemeral Storage versus Amazon EBS:
+
+|     Ephemeral    |     EBS    |
+|:-----------:|:-----------:|
+| Ephemeral Storage is recommended large and medium sized Kafka clusters. For large clusters, read/write traffic is distributed across a high number of brokers, so the loss of one of them has less impact. However for small clusters, a quick recovery is important but a failed broker takes longer and requires more network traffic. | It significantly reduces data-transfer traffic when a broker fails or must be replaced. |
+|  | Data stored on EBS is persisted in case of an instance failure or termination. The broker's data stored on an EBS volume remains intact and you can mount the EBS into a new EC2 instance. Only the changes made after the original broker failure need to be transferred across the network. It makes this process much faster. |
+
+It is recommended to chose EBS because of their frequent instance restacking requirements and also other benefits provided by EBS.
+
+### Instance types
+
+
 
 
 Review the following and get some other sources to get best practices and useful advices for application deployment using MSK
