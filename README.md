@@ -107,8 +107,7 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 
 ### Use cases
 
-##### ___ TODO: Link examples of real applications for each case____ [Done]
-
+##### Companies and Applications using Kafka
 
 Kafka is being used in many different application domains. Here are some of them:
 
@@ -145,7 +144,7 @@ The advantage of MSK is having all the capacities of Kafka integrated and manage
 MSK promise the advantages that are in general offer by Amazon's cloud computing services: 
 > Amazon Managed Streaming for Kafka **makes it easy** for you to **build and run production applications on Apache Kafka without needing** Apache Kafka infrastructure **management expertise**. That means you spend less time managing infrastructure and more time building applications.
 
-### Creating a Kafka cluster with MSK
+### Creating a Kafka cluster with MSK  
 
 The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
 
@@ -167,6 +166,67 @@ When creating and configuring the Kafka cluster it is recommended to be really c
 ## Best practices
 
 ##### ___ TODO: Redact the best practices____
+
+The best practices described here are based in experiences running and operating large-scale Kafka clusters on Amazon Web Services. This post intends to help AWS customers currently working and running Kafka on AWS, and also, for those customers who are considering migrating on-premises Kafka deployment to AWS.
+
+Running Kafka on Amazon EC2 provides a high performance, scalable solutions and many different instance types and storage options combinations for Kafka deployments. However, since there are a lot of possible deployment topologies, it's not always trivial to select the most appropiate strategy for a specific use case.
+
+Here we try to cover some aspects of running Kafka clusters on AWS
+* Deployment considerations and patterns
+* Storage options
+* Instance Types
+* Networking
+* Upgrades
+* Performance tuning
+* Monitoring
+* Security
+* Backup and restoration
+
+### Deployment considerations and patterns
+
+First of all, a successfull deployment starts with thoughtful consideration of the following options:  
+* Availability, 
+* Consistency and 
+* operational overhead of deployment.
+
+One typical deployment pattern is in a single AWS Regions with 3 Availability Zones (AZs). One Kafka cluster is deployed in each AZ alonside ZooKeeper, Kafka producer and consumer as follows:
+
+__Imagen__
+
+Where Kafka producers and Kafka clusters are deployed on each zone, the data is distributed evenly across the clusters and the consumers aggregate data from all three clusters.
+
+In case of a failover, all the Kafka producers are marked down, the consumers are stopped, there is a debugging phase, the consumers are restarted and, afterwards, the producers are restarted.
+
+Here are the pros and the cons of this deployment pattern:
+
+|     Pros    |     Cons    |
+|:-----------:|:-----------:|
+| Highly Available (3 AZs) | Very High operational overhead |
+| Can sustain the failure of 2 AZs | 	Changes need to be deployed three times |
+| No message Loss during failovers |  Maintaining and monitoring three Kafka clusters |
+| Simple deployment |  Maintaining and monitoring three consumer clusters |
+
+Another typical deployment pattern is in a single AWS Region with a single Kafka cluster alongside Kafka brokers and ZooKeepers distributed across three AZs, as the image below shows (Active - Standby):
+
+__Image 2__
+
+Where Kafka producers are deployed on all three AZs and only one Kafka cluster is deployed across three AZs.  
+ZooKeeper instances are deployed on each AZ, Brokers are spread evenly across AZs, Kafka consumers can be deployed across all three AZs and the Standby mirror is part of the deployment.
+
+In case of a failover, the traffic is switched to standby Kafka cluster and the consumers are restarted to consume from the Kafka cluster.
+
+Again, here are the pros and the cons of this deployment pattern:
+
+|     Pros    |     Cons    |
+|:-----------:|:-----------:|
+| Less operational overhead compared to the first option | Increased latency due to cross-AZ data transfer|
+| Only one Kakfka cluster to manage and consume data from | Cluster can become unavailable in case of network glitch|
+| Handles single AZ failures without activating a standby cluster | Possibility of in-transit message loss during failover |
+
+It is recommended to use a single Kafka cluster in one AWS Regions, with brokers distributing across all three AZs (1 region, 3 AZs). This approach offers stronger fault tolerance, because a failed AZ won't cause Kafka downtime.
+
+### Storage
+
 
 Review the following and get some other sources to get best practices and useful advices for application deployment using MSK
 
