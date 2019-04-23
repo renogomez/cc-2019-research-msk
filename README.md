@@ -107,16 +107,16 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 
 ### Use cases
 
-##### ___ TODO: Link examples of real applications for each case____
+##### ___ TODO: Link examples of real applications for each case____ [Done]
 
 
 Kafka is being used in many different application domains. Here are some of them:
 
-- **Real-time web and log analytics:** How the web application performs and how the users interact with it.
-- **Messaging:** Some companies use Kafka as a buffer to communicate different applications. 
-- **Transaction and event sourcing:** Gathering transactions from multiple data sources to maintain the consistency and traceability of such transactions. 
-- **Decoupled microservices:** Popular data store for micro services. 
-- **Streaming ETL:** Ingest and transform data to deliver info to other systems in _real time_. 
+- **Real-time web and log analytics:** How the web application performs and how the users interact with it, e.g.: [Sematext](https://sematext.com/)
+- **Messaging:** Some companies use Kafka as a buffer to communicate different applications, e.g.: [Helprace](https://helprace.com/help-desk) 
+- **Transaction and event sourcing:** Gathering transactions from multiple data sources to maintain the consistency and traceability of such transactions, i.e.: [Confluent](https://www.confluent.io/blog/event-sourcing-cqrs-stream-processing-apache-kafka-whats-connection/)
+- **Decoupled microservices:** Popular data store for micro services, e.g.: [Event Streams for IBM Cloud](https://www.ibm.com/cloud/event-streams-for-cloud)
+- **Streaming ETL:** Ingest and transform data to deliver info to other systems in _real time_, e.g.: [Spongecell](https://www.spongecell.com/about) 
 
 Some companies using Kafka: 
 
