@@ -165,8 +165,6 @@ When creating and configuring the Kafka cluster it is recommended to be really c
 
 ## Best practices
 
-##### ___ TODO: Redact the best practices____
-
 The best practices described here are based in experiences running and operating large-scale Kafka clusters on Amazon Web Services. This post intends to help AWS customers currently working and running Kafka on AWS, and also, for those customers who are considering migrating on-premises Kafka deployment to AWS.
 
 Running Kafka on Amazon EC2 provides a **high performance**, **scalable solutions** and many **different instance types and storage options** combinations for Kafka deployments. However, since there are a lot of possible deployment topologies, **it's not always trivial to select the most appropiate strategy for a specific use case**.
@@ -185,69 +183,80 @@ Here we try to cover some aspects of running Kafka clusters on AWS:
 
 ### Deployment considerations and patterns
 
-First of all, a successfull deployment starts with thoughtful consideration of the following options:  
-* Availability, 
-* Consistency and 
-* operational overhead of deployment.
+To begin with, it is really important to have in consideration some things like the **Availability**, (i.e: in which zones a Kafka cluster is deployed), the **Consistency** of the data and the **Overhead** of deployment.
 
-One typical deployment pattern is in a single AWS Regions with 3 Availability Zones (AZs). One Kafka cluster is deployed in each AZ alonside ZooKeeper, Kafka producer and consumer as follows:
+There are multiple available configuration patterns, for example, a single AWS Region with three availability zones where each one has a Kafka cluster, just like the picture below shows:
 
-__Imagen__
-
-Where Kafka producers and Kafka clusters are deployed on each zone, the data is distributed evenly across the clusters and the consumers aggregate data from all three clusters.
-
-In case of a **failover**, all the Kafka producers are marked down, the consumers are stopped, there is a debugging phase, the consumers are restarted and, afterwards, the producers are restarted.
-
-Here are the pros and the cons of this deployment pattern:
+__Image__
 
 |     Pros    |     Cons    |
 |:-----------:|:-----------:|
-| Highly Available (3 AZs) | Very High operational overhead |
-| Can sustain the failure of 2 AZs | 	Changes need to be deployed three times |
-| No message Loss during failovers |  Maintaining and monitoring three Kafka clusters |
-| Simple deployment |  Maintaining and monitoring three consumer clusters |
+| High availability | High overhead (one change is deployed multiple times) |
+| Fault tolerant | Tedious to maintain and monitor |
+| Data evenly distributed |
+| Simply deployment |
 
-Another typical deployment pattern is in a single AWS Region with a single Kafka cluster alongside Kafka brokers and ZooKeepers distributed across three AZs, as the image below shows (Active - Standby):
+Another configuration is, for example, a single AWS Region with three availability zones with a Kafka cluster in standby, to be able to switch between clusters if the first one fails.
 
 __Image 2__
 
-Where Kafka producers are deployed on all three AZs and only one Kafka cluster is deployed across three AZs.  
-ZooKeeper instances are deployed on each AZ, Brokers are spread evenly across AZs, Kafka consumers can be deployed across all three AZs and the Standby mirror is part of the deployment.
-
-In case of a **failover**, the traffic is switched to standby Kafka cluster and the consumers are restarted to consume from the Kafka cluster.
-
-Again, here are the pros and the cons of this deployment pattern:
-
 |     Pros    |     Cons    |
 |:-----------:|:-----------:|
-| Less operational overhead compared to the first option | Increased latency due to cross-AZ data transfer|
-| Only one Kakfka cluster to manage and consume data from | Cluster can become unavailable in case of network glitch|
-| Handles single AZ failures without activating a standby cluster | Possibility of in-transit message loss during failover |
+| Unique Kafka cluster | High latency when switching |
+| Fault tolerant | Messages can be lost during a switch |
 
-It is recommended to use a single Kafka cluster in one AWS Regions, with brokers distributing across all three AZs (1 region, 3 AZs). This approach offers stronger fault tolerance, because a failed AZ won't cause Kafka downtime.
+As a recommendation, the first option is better, because a failed Availability Zone won't cause Kafka downtime.
 
 ### Storage
 
-There are two options for file storage in Amazon EC2:
+There are two options for file storage in Amazon EC2, each one with its own pros and cons:
 
-* Ephemeral Storage 
-* Amazon Elastic Block Store
-
-The first one is local to Amazon EC2 instance, which can provide high IOPS based on the instance type. On the other hand, Amazon EBS volumes offer high resiliency and you can configure IOPS based on our storage needs. They also offer advantatges on recovery time. The choice is **closely related to the type of workload** supported by your Kafka cluster.
-
-Kakfa has a built-in fault tolerance by replication data partitions across a certain number of instances. If a broker fails, it is possible to recover it by fetching all the data from other brokers in the cluster that hos the other replicas. Depdening on the size of the data transfer, it can affect recovery process and network traffic.
-
-Below we show the contrast of the benefits of using Ephemeral Storage versus Amazon EBS:
-
-|     Ephemeral    |     EBS    |
+|  Ephemeral (EC2 instance)  |     EBS (Elastic Block Store)     |
 |:-----------:|:-----------:|
-| Ephemeral Storage is recommended large and medium sized Kafka clusters. For large clusters, read/write traffic is distributed across a high number of brokers, so the loss of one of them has less impact. However for small clusters, a quick recovery is important but a failed broker takes longer and requires more network traffic. | It significantly reduces data-transfer traffic when a broker fails or must be replaced. |
-|  | Data stored on EBS is persisted in case of an instance failure or termination. The broker's data stored on an EBS volume remains intact and you can mount the EBS into a new EC2 instance. Only the changes made after the original broker failure need to be transferred across the network. It makes this process much faster. |
+| High IOPS | Higher resiliency |
+| Recommended for large and medium-sized Kakfa Clusters because of its recovery time | Configurable IOPS based on storage needs |
+|  | Data persistance even if a instance failure or termination occurrs |
 
-It is recommended to chose EBS because of their frequent instance restacking requirements and also other benefits provided by EBS.
 
 ### Instance types
 
+In AWS there are a lot of types of instances to choose, but normally the selected type depends on the storage required for the application on a Kafka cluster.
+
+It's always a best practice to ckeck the [lastest changes](https://aws.amazon.com/ec2/instance-types/) in instance types.
+
+### Networking
+
+A fast, reliable and fault tolerant network has always an important role in a distributed systems like Kafka. For that reason, the expected network throughput combined with the disk storage, is oftent the governing factor for cluster sizing.
+
+To be able to communicate with some elements from Kafka, it is recommended to select an option that keeps inter-clustering traffic on the private subnet.
+
+### Upgrades
+
+Be caerful when upgrading Kafka, you should keep the producer and the consumer clients on a version equal or lower than the version you are upgrading from.
+
+There are three types of updates, **Rolling or in-place upgrade**, **Downtime upgrade** and **Blue/Green Upgrade**
+
+### Performance Tunning
+
+You can tune Kafka performances in multiple ways. For example, in a case where throughtput is less than the network capacity, we can try adding more threads, or increasing the batch size, or adding more producers or partitions.
+
+### Monitoring
+
+Knowing if a Kafka cluster is working correctly is critical. For monitoring we can use some tools, like Newrelec, Wavefront, Amazon CloudWatch or AWS CloudTrial.
+
+It is recommended to monitor **CPU load**, **Network Metrics**, **Disk Space**, **Disk IO Performance**, etc as a system metrics.
+
+### Security 
+
+Kafka provides mechanisms to transfer data with relative high security across components involved. Some of this security  implementations can be found [here](http://kafka.apache.org/documentation.html#security).
+
+### Backup and Restoration
+
+To be able to restore and backup our data, setting a second cluster and replicate messages is the best way. In case you are using EBS-based deployements, there is an option that enables automatic snapshots of EBS volumen.
+
+Source: [AWS, Best Practices for Running Kafka](https://aws.amazon.com/es/blogs/big-data/best-practices-for-running-apache-kafka-on-aws/#).
+
+[Here](https://www.infoq.com/articles/apache-kafka-best-practices-to-optimize-your-deployment) and [here](https://dzone.com/articles/20-best-practices-for-working-with-apache-kafka-at), we can find best practices related with more internal components of Kafka.
 
 
 
