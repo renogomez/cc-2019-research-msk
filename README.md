@@ -119,14 +119,24 @@ Kafka is being used in many different application domains. Here are some of them
 
 Some companies using Kafka: 
 
-##### ___ TODO: Redact the use cases____
-
-
 ![kafka-APIs](./img/08-usecase-static.png)
 
 If possible, include different companies with different architectures
 
 ![kafka-APIs](img/09-usecase-realtime.gif)
+
+Here is a brief description of a few popular use cases for Apache Kafka:
+
+- **Website Activity Tracking**: The original use case for Kafka was to be able to rebuild a user activity tracking as a set of real-time pub-sub feeds.
+- **Messaging**: In comparison to most messaging systems, Kafka has a better thoughput, replication, and faul-tolerance which makes it a good solution for large scale message procesing applications. Here, Kafka is comparable to other messaging systems such as [RabbitMQ](https://www.rabbitmq.com/). 
+- **Metrics**: Often, Kafka is used for operational monitoring data, involving aggregating stadistics from distributed applications to generate centralized feeds of operational data.
+- **Log Aggregation**: Log aggregation typically collects physical log files off servers and puts them in a central place for processing. Kafka gives a cleaner abstraction of log or event data as a stream of messages, allowing lower-latency processing and easier support.
+- **Stream Processing**: Kafka perform a series of operations to transform and process data to feed other systems or to be further processed.
+- **Event Sourcing**: Event sourcing is a style of application design where state changes are logged as a time-ordered sequence of records. Kafka's support for very large stored logs makes it an excellent backend.
+- **Commit Log**: Kafka can work as a external commit-log for distributed systems. The logs help to replicate data between nodes and acts as a re-syncronization method for failed nodes, in order to restore their data.
+
+
+Source: [Kafka Uses](https://kafka.apache.org/uses),  [The Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
 
 
 ## Amazon Managed Streaming for Kafka
@@ -144,7 +154,7 @@ The advantage of MSK is having all the capacities of Kafka integrated and manage
 MSK promise the advantages that are in general offer by Amazon's cloud computing services: 
 > Amazon Managed Streaming for Kafka **makes it easy** for you to **build and run production applications on Apache Kafka without needing** Apache Kafka infrastructure **management expertise**. That means you spend less time managing infrastructure and more time building applications.
 
-### Creating a Kafka cluster with MSK  
+### Creating a Kafka cluster with MSK
 
 The main advantage of MSK is the facility it provides to configure and operate Kafka. You can verify it following the _getting started_ in the [official documentation](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html). Basically, you must consider the following steps: 
 
@@ -160,8 +170,6 @@ The main advantage of MSK is the facility it provides to configure and operate K
 From this point, you can configure your cluster to integrate other services of AWS like DynamoDB and so on.
 
 When creating and configuring the Kafka cluster it is recommended to be really careful while copying the IDs of the different components. In the same way, make sure to set the security groups correctly, most error come from not having the client machine as a safe source of information in the Kafka.
-
-
 
 ## Best practices
 
@@ -187,18 +195,18 @@ To begin with, it is really important to have in consideration some things like 
 
 There are multiple available configuration patterns, for example, a single AWS Region with three availability zones where each one has a Kafka cluster, just like the picture below shows:
 
-__Image__
+![Kafka-Pattern1](./img/13-KafkaPattern.png)
 
 |     Pros    |     Cons    |
 |:-----------:|:-----------:|
 | High availability | High overhead (one change is deployed multiple times) |
 | Fault tolerant | Tedious to maintain and monitor |
 | Data evenly distributed |
-| Simply deployment |
+| Simple deployment |
 
 Another configuration is, for example, a single AWS Region with three availability zones with a Kafka cluster in standby, to be able to switch between clusters if the first one fails.
 
-__Image 2__
+![Kafka-Pattern2](./img/14-KafkaPattern.png)
 
 |     Pros    |     Cons    |
 |:-----------:|:-----------:|
@@ -216,7 +224,6 @@ There are two options for file storage in Amazon EC2, each one with its own pros
 | High IOPS | Higher resiliency |
 | Recommended for large and medium-sized Kakfa Clusters because of its recovery time | Configurable IOPS based on storage needs |
 |  | Data persistance even if a instance failure or termination occurrs |
-
 
 ### Instance types
 
@@ -257,22 +264,10 @@ To be able to restore and backup our data, setting a second cluster and replicat
 Source: [AWS, Best Practices for Running Kafka](https://aws.amazon.com/es/blogs/big-data/best-practices-for-running-apache-kafka-on-aws/#).
 
 [Here](https://www.infoq.com/articles/apache-kafka-best-practices-to-optimize-your-deployment) and [here](https://dzone.com/articles/20-best-practices-for-working-with-apache-kafka-at), we can find best practices related with more internal components of Kafka.
-
-
-
-Review the following and get some other sources to get best practices and useful advices for application deployment using MSK
-
-https://aws.amazon.com/blogs/big-data/best-practices-for-running-apache-kafka-on-aws/
-
-Review webinar
-
-https://pages.awscloud.com/Introduction-to-Amazon-Managed-Streaming-for-Kafka-MSK_1208-ABD_OD.html
-
  
 ## Conclusion
 
 ##### ___ TODO: Redact conclusions____
-
 
 In this report we have described the foundations of Kafka and MSK architecture.. 
 
