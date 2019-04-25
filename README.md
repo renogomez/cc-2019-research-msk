@@ -3,7 +3,7 @@
 ## Authors
 
 René Gómez Londoño  
-Ivan Salfati (ivan.salfati@est.fib.upc.edu)
+Ivan Salfati (ivansalfatift@gmail.com)
 
 ## Table Of Contents
 
