@@ -2,7 +2,7 @@
 
 ## Authors
 
-René Gómez Londoño  
+René Gómez Londoño (renegomezlondono@gmail.com) 
 Ivan Salfati (ivansalfatift@gmail.com)
 
 ## Table Of Contents
@@ -139,7 +139,7 @@ Here is a brief description of a few popular use cases for Apache Kafka:
 
 Source: [Kafka Uses](https://kafka.apache.org/uses),  [The Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
 
-Nevertheless, deploying and managing a distributed system is an activity that requires expertise, mainly in Big Data systems, where the amount of data and numerous services have to interact together to serve millions of requests. [Narkhede](https://www.indeed.com/prime/resources/talent/12-things-you-need-to-know-about-kafka-in-the-cloud) expressed that deploying clusters, managing schemas and data pipelines, maintaining visibility into end-to-end monitoring, and load balancing data requires the skills of an Site Reliability Engineer who has a deep understanding of both distributed systems and Kafka. There is a huge industry-wide trend to move to managed services, to move away from the business of buying machines and hiring these expensive hard to find people to manage these services and instead focus on the application business logic.
+Nevertheless, deploying and managing a distributed system is an activity that requires expertise, mainly in Big Data systems, where the amount of data and numerous services have to interact together to serve millions of requests. [Narkhede](https://www.indeed.com/prime/resources/talent/12-things-you-need-to-know-about-kafka-in-the-cloud) expressed _that deploying clusters, managing schemas and data pipelines, maintaining visibility into end-to-end monitoring, and load balancing data requires the skills of an Site Reliability Engineer who has a deep understanding of both distributed systems and Kafka. There is a huge industry-wide trend to move to managed services, to move away from the business of buying machines and hiring these expensive hard to find people to manage these services and instead focus on the application business logic_.
 
 Precisely there lays the importance of cloud computing services as MSK. Companies contract third-parties to manage complex processes that require highly skilled professionals.
 
@@ -279,14 +279,15 @@ In the end, we can say with certainty that MSK has the potential to become a gre
 
 ## Sources and further readings
 
-[Fowler - What do you mean by _Event-Driven'_](https://martinfowler.com/articles/201701-event-driven.html)
-[Apache Kafka Documentation](https://kafka.apache.org/intro)
-[Data Artisans, 2017. Apache Flink. Data Artisans](https://data-artisans.com/) 
-[What is Streaming Data? – Amazon Web Services](https://aws.amazon.com/streaming-data/)
-[Apache Kafka Best Practices, Product Updates & More. Confluent.](https://www.confluent.io/blog/) 
-[Helland, P., 2015. Immutability Changes Everything](http://cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf)
-[Netflix Technology Blog](https://medium.com/netflix-techblog/evolution-of-the-netflix-data-pipeline-da246ca36905)
-[Narkhede, N., Shapira, G. & Palino, T., 2017. Kafka: The Definitive Guide](https://www.amazon.com/Kafka-Definitive-Real-Time-Stream-Processing/dp/1491936169)
-[12 Things You Need to Know About Kafka in the Cloud](https://www.indeed.com/prime/resources/talent/12-things-you-need-to-know-about-kafka-in-the-cloud)
-[Kafka in the Cloud (Podcast)](https://softwareengineeringdaily.com/2017/07/10/kafka-in-the-cloud-with-neha-narkhede/)
+* [Fowler - What do you mean by _Event-Driven'_](https://martinfowler.com/articles/201701-event-driven.html)
+
+* [Apache Kafka Documentation](https://kafka.apache.org/intro)
+* [Data Artisans, 2017. Apache Flink. Data Artisans](https://data-artisans.com/) 
+* [What is Streaming Data? – Amazon Web Services](https://aws.amazon.com/streaming-data/)
+* [Apache Kafka Best Practices, Product Updates & More. Confluent.](https://www.confluent.io/blog/) 
+* [Helland, P., 2015. Immutability Changes Everything](http://cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf)
+* [Netflix Technology Blog](https://medium.com/netflix-techblog/evolution-of-the-netflix-data-pipeline-da246ca36905)
+* [Narkhede, N., Shapira, G. & Palino, T., 2017. Kafka: The Definitive Guide](https://www.amazon.com/Kafka-Definitive-Real-Time-Stream-Processing/dp/1491936169)
+* [12 Things You Need to Know About Kafka in the Cloud](https://www.indeed.com/prime/resources/talent/12-things-you-need-to-know-about-kafka-in-the-cloud)
+* [Kafka in the Cloud (Podcast)](https://softwareengineeringdaily.com/2017/07/10/kafka-in-the-cloud-with-neha-narkhede/)
 
