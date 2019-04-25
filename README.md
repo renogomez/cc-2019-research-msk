@@ -2,7 +2,7 @@
 
 ## Authors
 
-René Gómez Londoño
+René Gómez Londoño  
 Ivan Salfati (ivan.salfati@est.fib.upc.edu)
 
 ## Table Of Contents
