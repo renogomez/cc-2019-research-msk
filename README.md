@@ -107,7 +107,7 @@ Kafka offers a mix of those two messaging models: **Kafka** publishes messages i
 
 ### Use cases
 
-##### Companies and Applications using Kafka
+#### Companies and Applications using Kafka
 
 Kafka is being used in many different application domains. Here are some of them:
 
@@ -267,7 +267,7 @@ Source: [AWS, Best Practices for Running Kafka](https://aws.amazon.com/es/blogs/
 
 In this report we have described the foundations of Kafka and MSK architecture on Amazon Web Services, and some of the best practices to be used during the deployment and maintenance of MSK. Using Kafka we can improve some applications (e.g.: Machine Learning Algorithms) that previously had to obtain the data from logs, by using streaming data as an input to train an initial model with the first data arrived and then, using subsequent streams of data to continuously learn from it. With this new model it is possible on one hand, to invest less time to train an algorithm and on the other hand, it is possible to have a model trained with data "on-real time".
 
-In the end, we can say with certainty that MSK has the potential to become a great tool for the Data Science.
+In the end, we can say with certainty that MSK has the potential to become a great tool for the Data Science field.
 
 ## Sources and further readings
 
